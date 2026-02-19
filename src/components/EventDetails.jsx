@@ -17,7 +17,7 @@ function EventDetail() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/eventApi/${id}/`);
+        const res = await fetch(` https://advance-django-event.onrender.com/eventApi/${id}/`);
         if (res.ok) {
           const data = await res.json();
           setEvent(data);
@@ -49,7 +49,7 @@ function EventDetail() {
     }
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/eventApi/${id}/register/`, {
+      const res = await fetch(` https://advance-django-event.onrender.com/eventApi/${id}/register/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,7 @@ function EventDetail() {
         setMessage("Registration successful");
       
         // Refresh event to update available seats
-        const updated = await fetch(`http://127.0.0.1:8000/api/eventApi/${id}/`);
+        const updated = await fetch(` https://advance-django-event.onrender.com/eventApi/${id}/`);
         setEvent(await updated.json());
       } else {
         
@@ -84,7 +84,7 @@ function EventDetail() {
     }
   
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/eventApi/${id}/cancel/`, {
+      const res = await fetch(` https://advance-django-event.onrender.com/eventApi/${id}/cancel/`, {
         method: "DELETE",  // ✅ must match backend
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ function EventDetail() {
         setQrCode(null);    
         setMessage("Registration cancelled.");
 
-        const updated = await fetch(`http://127.0.0.1:8000/api/eventApi/${id}/`);
+        const updated = await fetch(` https://advance-django-event.onrender.com/eventApi/${id}/`);
         setEvent(await updated.json());
       } else {
         const data = await res.json();
@@ -111,7 +111,7 @@ function EventDetail() {
     const fetchRegistration = async () => {
       if (!authTokens?.access) return;
   
-      const res = await fetch(`http://127.0.0.1:8000/api/eventApi/${id}/registration/`, {
+      const res = await fetch(` https://advance-django-event.onrender.com/eventApi/${id}/registration/`, {
         headers: {
           Authorization: `Bearer ${authTokens.access}`,
         },

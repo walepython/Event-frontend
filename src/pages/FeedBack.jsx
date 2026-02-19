@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = " https://advance-django-event.onrender.com/api";
 
 export default function FeedBack() {
   const { eventId } = useParams(); // get event id from URL
@@ -30,7 +30,7 @@ export default function FeedBack() {
 
     const fetchEvent = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/api/eventApi/${eventId}/`, {
+        const res = await axios.get(`${API_BASE_URL}/eventApi/${eventId}/`, {
           headers: { Authorization: `Bearer ${authTokens.access}` },
         });
         setEvent(res.data);
@@ -58,7 +58,7 @@ export default function FeedBack() {
     try {
       // Try to submit feedback
       const res = await axios.post(
-        `${API_BASE_URL}/api/feedback/`,
+        `${API_BASE_URL}/feedback/`,
         {
           event: Number(eventId),
           rating: Number(rating),

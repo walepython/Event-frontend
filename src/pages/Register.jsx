@@ -35,7 +35,7 @@ const Register = () => {
       }
     try {
     //   const { password2, ...dataToSend } = formData;
-      const res = await axios.post("http://127.0.0.1:8000/api/register/", formData);
+      const res = await axios.post(" https://advance-django-event.onrender.com/register/", formData);
       setMessage("✅ Registration successful!");
       setFormData({
         username: "",

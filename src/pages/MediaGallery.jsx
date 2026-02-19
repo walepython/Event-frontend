@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Camera } from "lucide-react"; // optional icon (install lucide-react)
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = " https://advance-django-event.onrender.com/api";
 
 const categories = [
   "All Events",
@@ -22,7 +22,7 @@ export default function MediaGallery() {
 
   useEffect(() => {
     axios
-      .get(`${API_BASE_URL}/api/mediaApi/`)
+      .get(`${API_BASE_URL}/mediaApi/`)
       .then((res) => setMediaItems(res.data))
       .catch(console.error);
   }, []);

@@ -7,7 +7,7 @@ function EventList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  fetch("http://127.0.0.1:8000/api/eventApi2/")
+  fetch(" https://advance-django-event.onrender.com/eventApi2/")
     .then(res => {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);

@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const refreshToken = async () => {
     if (!authTokens?.refresh) return;
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+      const res = await fetch(" https://advance-django-event.onrender.com/token/refresh/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh: authTokens.refresh }),
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/token/", {
+      const res = await fetch(" https://advance-django-event.onrender.com/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

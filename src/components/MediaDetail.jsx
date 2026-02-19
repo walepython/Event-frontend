@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://advance-django-event.onrender.com/api";
 
 export default function MediaDetail() {
   const { eventId } = useParams();
@@ -11,7 +11,7 @@ export default function MediaDetail() {
 
   useEffect(() => {
     axios
-      .get(`${API_BASE_URL}/api/mediaApi/${eventId}/`)
+      .get(`${API_BASE_URL}/mediaApi/${eventId}/`)
       .then((res) => setMedia(res.data))
       .catch(() =>
         setError("Could not load media. Please try again later.")
