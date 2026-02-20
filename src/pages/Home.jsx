@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch(" https://advance-django-event.onrender.com/eventApi/");
+        const res = await fetch(" https://advance-django-event.onrender.com/api/eventApi/");
         const data = await res.json();
 
         setOngoing(data.ongoing || []);
@@ -51,7 +51,7 @@ export default function Home() {
             {ongoing.map((event) => (
               <div className="col-md-4" key={event.id}>
                 <div className="card mb-4 shadow-sm h-100 border border-primary">
-                  {event.banner && (
+                  {event.image && (
                     <img
                       src={event.image}
                       className="card-img-top"
