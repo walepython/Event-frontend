@@ -127,28 +127,104 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-slate-800 px-4 py-4 space-y-3 text-white">
-          <NavLink to="/" className="block">Home</NavLink>
-          <NavLink to="/events" className="block">Events</NavLink>
-          <NavLink to="/gallery" className="block">Gallery</NavLink>
-          <NavLink to="/about" className="block">About</NavLink>
-          <NavLink to="/contact" className="block">Contact Us</NavLink>
+          <NavLink 
+            to="/" 
+            className="block" 
+            onClick={() => setIsOpen(false)}  // Close menu when clicked
+          >
+            Home
+          </NavLink>
+          
+          <NavLink 
+            to="/events" 
+            className="block" 
+            onClick={() => setIsOpen(false)}  // Close menu when clicked
+          >
+            Events
+          </NavLink>
+          
+          <NavLink 
+            to="/gallery" 
+            className="block" 
+            onClick={() => setIsOpen(false)}  // Close menu when clicked
+          >
+            Gallery
+          </NavLink>
+          
+          <NavLink 
+            to="/about" 
+            className="block" 
+            onClick={() => setIsOpen(false)}  // Close menu when clicked
+          >
+            About
+          </NavLink>
+          
+          <NavLink 
+            to="/contact" 
+            className="block" 
+            onClick={() => setIsOpen(false)}  // Close menu when clicked
+          >
+            Contact Us
+          </NavLink>
 
           {user ? (
             <>
               <span className="block">Hi {user.username}</span>
-              <button onClick={logout} className="block text-red-400">
+              
+              {/* Show role-based mobile links */}
+              {role === "admin" && (
+                <>
+                  <NavLink to="/admin-board" className="block" onClick={() => setIsOpen(false)}>Admin</NavLink>
+                  <NavLink to="/dashboard" className="block" onClick={() => setIsOpen(false)}>Dashboard</NavLink>
+                  <NavLink to="/scanpage" className="block" onClick={() => setIsOpen(false)}>Scanpage</NavLink>
+                </>
+              )}
+              
+              {role === "organizer" && (
+                <>
+                  <NavLink to="/organizer-board" className="block" onClick={() => setIsOpen(false)}>Organizer</NavLink>
+                  <NavLink to="/dashboard" className="block" onClick={() => setIsOpen(false)}>Dashboard</NavLink>
+                  <NavLink to="/scanpage" className="block" onClick={() => setIsOpen(false)}>Scanpage</NavLink>
+                </>
+              )}
+              
+              {role === "participant" && (
+                <>
+                  <NavLink to="/my-registrations" className="block" onClick={() => setIsOpen(false)}>My Registrations</NavLink>
+                  <NavLink to="/dashboard" className="block" onClick={() => setIsOpen(false)}>Dashboard</NavLink>
+                </>
+              )}
+              
+              <button 
+                onClick={() => {
+                  logout();
+                  setIsOpen(false);  // Close menu after logout
+                }} 
+                className="block text-red-400"
+              >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <NavLink to="/login" className="block">Login</NavLink>
-              <NavLink to="/register" className="block">Signup</NavLink>
+              <NavLink 
+                to="/login" 
+                className="block" 
+                onClick={() => setIsOpen(false)}  // Close menu when clicked
+              >
+                Login
+              </NavLink>
+              <NavLink 
+                to="/register" 
+                className="block" 
+                onClick={() => setIsOpen(false)}  // Close menu when clicked
+              >
+                Signup
+              </NavLink>
             </>
           )}
         </div>
       )}
-
 
     </nav>
      );
