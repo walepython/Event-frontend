@@ -1,5 +1,5 @@
 .hero-section {
-  background-image:linear-gradient(rgba(0, 0, 0, 0.7)), url('./event background image.jpg');
+  background-image:linear-gradient(rgba(0, 0, 0, 0.7)), url('/event background image.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
