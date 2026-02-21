@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://advance-django-event.onrender.com",
+  baseURL: "https://advance-django-event.onrender.com/api",
 });
 
 // Helper to get access token
@@ -55,7 +55,7 @@ api.interceptors.response.use(
         if (!refreshToken) throw new Error("No refresh token");
         
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/token/refresh/",
+          "https://advance-django-event.onrender.com/api/token/refresh/",
           { refresh: refreshToken }
         );
         

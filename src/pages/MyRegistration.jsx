@@ -5,7 +5,7 @@ export default function RegisterPage() {
   const [qrCode, setQrCode] = useState(null);
 
   const registerUser = async () => {
-    const response = await axios.post(" https://advance-django-event.onrender.com/register_event/", {
+    const response = await axios.post(" https://advance-django-event.onrender.com/api/register_event/", {
       event_id: 10,
     }, {
       headers: {

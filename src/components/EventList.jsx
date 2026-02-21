@@ -7,7 +7,7 @@ function EventList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  fetch(" https://advance-django-event.onrender.com/eventApi2/")
+  fetch(" https://advance-django-event.onrender.com/api/eventApi2/")
     .then(res => {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);

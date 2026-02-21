@@ -10,7 +10,7 @@ function EventList() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch(" https://advance-django-event.onrender.com/eventApi/");
+        const res = await fetch(" https://advance-django-event.onrender.com/api/eventApi/");
         const data = await res.json();
 
         setOngoing(data.ongoing || []);

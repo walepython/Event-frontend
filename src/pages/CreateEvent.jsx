@@ -167,7 +167,7 @@ const CreateEvent = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Replace your handleSubmit function with this:
+  // handleSubmit function :
 
 const handleSubmit = async (e) => {
     e.preventDefault();
