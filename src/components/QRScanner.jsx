@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Html5QrcodeScanner } from "html5-qrcode";
+//import { Html5QrcodeScanner } from "html5-qrcode";
+import { Html5Qrcode } from "html5-qrcode";
 import api from "../services/api";
 
 const QRScanner = () => {
@@ -19,81 +20,74 @@ const QRScanner = () => {
   // Get available cameras
   const getCameras = async () => {
     try {
-      const Html5Qrcode = window.Html5Qrcode;
-      if (Html5Qrcode) {
-        const devices = await Html5Qrcode.getCameras();
-        setAvailableCameras(devices);
-        if (devices.length > 0) {
-          setSelectedCamera(devices[0].id);
-        }
+      const devices = await Html5Qrcode.getCameras();
+      setAvailableCameras(devices);
+  
+      if (devices.length > 0) {
+        setSelectedCamera(devices[0].id);
       }
     } catch (err) {
       console.error("Error getting cameras:", err);
+      setPermissionError(true);
     }
   };
+  
 
   // Initialize scanner with selected camera
   const startScanner = async () => {
-    if (!scannerContainerRef.current) return;
+    if (!scannerContainerRef.current || !selectedCamera) return;
 
     try {
-      // Clear any existing scanner first
+      setError("");
+      setSuccess("");
+      setTicketInfo(null);
+
+      // Clear previous scanner if exists
       await stopScanner();
 
-      // Create a clean container for the scanner
-      scannerContainerRef.current.innerHTML = '';
-      
-      // Create a unique ID for this scanner instance
-      const scannerId = `scanner-${Date.now()}`;
-      const scannerElement = document.createElement('div');
-      scannerElement.id = scannerId;
-      scannerContainerRef.current.appendChild(scannerElement);
+      const scannerId = "qr-reader";
+      scannerContainerRef.current.innerHTML = `<div id="${scannerId}"></div>`;
 
-      // Initialize scanner
-      scannerRef.current = new Html5QrcodeScanner(
-        scannerId,
+      const html5QrCode = new Html5Qrcode(scannerId);
+      scannerRef.current = html5QrCode;
+
+      await html5QrCode.start(
+        selectedCamera,
         {
           fps: 10,
-          qrbox: { width: 250, height: 250 },
-          aspectRatio: 1.0,
-          disableFlip: false,
-          videoConstraints: selectedCamera ? { deviceId: selectedCamera } : undefined
+          qrbox: 250,
         },
-        false
+        (decodedText) => {
+          onScanSuccess(decodedText);
+        },
+        (errorMessage) => {onScanFailure(errorMessage)}
       );
 
-      scannerRef.current.render(onScanSuccess, onScanFailure);
       setIsScanning(true);
-      setPermissionError(false);
     } catch (err) {
-      console.error("Failed to start scanner:", err);
-      if (err.name === 'NotAllowedError') {
-        setPermissionError(true);
-        setError("Camera permission denied. Please allow camera access.");
-      } else if (err.name === 'NotFoundError') {
-        setError("No camera found on your device.");
-      } else {
-        setError(`Camera error: ${err.message}`);
-      }
+      console.error("Camera error:", err);
+      setPermissionError(true);
+      setError("Unable to access camera. Please allow camera permission.");
     }
   };
 
-  const stopScanner = async () => {
+
+   // 🛑 Stop Camera Properly
+   const stopScanner = async () => {
     if (scannerRef.current) {
       try {
-        // Stop the camera stream first
+        await scannerRef.current.stop();
         await scannerRef.current.clear();
-        scannerRef.current = null;
       } catch (err) {
-        console.error("Error stopping scanner:", err);
+        console.warn("Stop error:", err);
       }
+      scannerRef.current = null;
     }
-    
-    // Clean up the container
+
     if (scannerContainerRef.current) {
-      scannerContainerRef.current.innerHTML = '';
+      scannerContainerRef.current.innerHTML = "";
     }
-    
+
     setIsScanning(false);
   };
 

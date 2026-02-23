@@ -206,7 +206,7 @@ const RegistrationsTable = ({ registrations, onRefresh }) => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-xs text-gray-500 font-mono max-w-xs truncate" title={reg.public_id}>
-                    {reg.public_id?.slice(0, 13)}...
+                    {reg.public_id?.slice(0, 100)}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
